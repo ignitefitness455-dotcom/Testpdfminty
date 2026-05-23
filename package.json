@@ -1,0 +1,39 @@
+{
+  "name": "pdfminty",
+  "version": "1.1.0",
+  "description": "PDFMinty - Free Online PDF Tools. 100% privacy-friendly, no files ever leave your device.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "test:unit": "vitest run",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build:android": "vite build && npx cap sync android",
+    "open:android": "npx cap open android"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.59.1",
+    "eslint": "^10.1.0",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.8.3",
+    "terser": "^5.47.1",
+    "typescript": "^6.0.3",
+    "vite": "^5.0.0",
+    "vitest": "^4.1.6"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.3.2",
+    "@capacitor/cli": "^8.3.2",
+    "@capacitor/core": "^8.3.2",
+    "canvas-confetti": "^1.9.4",
+    "jspdf": "^4.2.1",
+    "jszip": "^3.10.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^5.7.284"
+  }
+}
