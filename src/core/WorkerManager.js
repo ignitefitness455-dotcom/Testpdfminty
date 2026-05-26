@@ -10,9 +10,27 @@ const taskQueue = [];
 let taskCounter = 0;
 const activeTasks = new Map();
 
+const workerMap = {
+  'add-blank-page': () => new Worker(new URL('../../workers/add-blank-page.js', import.meta.url), { type: 'module' }),
+  'add-page-numbers': () => new Worker(new URL('../../workers/add-page-numbers.js', import.meta.url), { type: 'module' }),
+  'compress': () => new Worker(new URL('../../workers/compress.js', import.meta.url), { type: 'module' }),
+  'delete-pages': () => new Worker(new URL('../../workers/delete-pages.js', import.meta.url), { type: 'module' }),
+  'extract-pages': () => new Worker(new URL('../../workers/extract-pages.js', import.meta.url), { type: 'module' }),
+  'image-to-pdf': () => new Worker(new URL('../../workers/image-to-pdf.js', import.meta.url), { type: 'module' }),
+  'merge': () => new Worker(new URL('../../workers/merge.js', import.meta.url), { type: 'module' }),
+  'protect': () => new Worker(new URL('../../workers/protect.js', import.meta.url), { type: 'module' }),
+  'reorder': () => new Worker(new URL('../../workers/reorder.js', import.meta.url), { type: 'module' }),
+  'rotate': () => new Worker(new URL('../../workers/rotate.js', import.meta.url), { type: 'module' }),
+  'split': () => new Worker(new URL('../../workers/split.js', import.meta.url), { type: 'module' }),
+  'unlock': () => new Worker(new URL('../../workers/unlock.js', import.meta.url), { type: 'module' }),
+  'watermark': () => new Worker(new URL('../../workers/watermark.js', import.meta.url), { type: 'module' }),
+};
+
 function createDedicatedWorker(taskName) {
-  const workerPath = `/workers/${taskName}.js`;
-  return new Worker(new URL(`../../workers/${taskName}.js`, import.meta.url), { type: 'module' });
+  if (workerMap[taskName]) {
+    return workerMap[taskName]();
+  }
+  throw new Error(`Unknown worker task: ${taskName}`);
 }
 
 class WorkerInstance {
